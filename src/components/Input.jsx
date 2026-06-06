@@ -4,7 +4,7 @@ export default function Input({ placeholder, onChangeFunc }) {
 
     return (
         <View style={styles.Container}>
-            <TextInput onChange={onChangeFunc} style={styles.inputField} placeholder={placeholder} />
+            <TextInput onChangeText={onChangeFunc} style={styles.inputField} placeholder={placeholder} />
         </View>
     )
 }

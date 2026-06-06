@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import Routes from "../routes";
 import { useState } from "react";
 import AlertaMensagem from "../components/AlertaMensagem";
-import { useAuth } from "../providers/authContext";
+import { useAuth } from "../providers/AuthContext";
 
 export default function Login() {
 
@@ -16,7 +16,7 @@ export default function Login() {
     const [mensagem, setMensagem] = useState("");
 
     function autenticar() {
-        const sucesso = login(inputEmail, inputSenha)
+        const sucesso = login(email, senha)
         if (sucesso) {
             navigation.navigate(Routes.DRAWER)
         } else {
@@ -28,8 +28,8 @@ export default function Login() {
         <>
             <View style={styles.Container}>
                 <Text style={styles.Title}>Login</Text>
-                <Input onChangeFunc={(e) => setEmail(e.target.value)} placeholder={"email"}  />
-                <Input onChangeFunc={(e) => setSenha(e.target.value)} placeholder={"Senha"} />
+                <Input onChangeFunc={setEmail} placeholder={"email"}  />
+                <Input onChangeFunc={setSenha} placeholder={"Senha"} />
                 <AlertaMensagem msg={mensagem} style={mensagem != "" ? {} : {display:'none'}}/>
                 <Pressable onPress={autenticar} style={styles.Btn}><Text style={styles.Text}>Entrar</Text></Pressable>
             </View>
