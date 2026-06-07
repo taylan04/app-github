@@ -1,13 +1,14 @@
 import { StyleSheet, View, Text, ScrollView } from "react-native";
 import { SafeAreaView } from 'react-native-safe-area-context';
+import BackPage from "../components/BackPage";
 
 export default function DetailsRepo({ route }) {
     const { repo } = route.params;
 
     return (
         <SafeAreaView style={styles.container}>
+            <BackPage style={styles.backPage} />
             <ScrollView style={styles.scroll}>
-
                 <Text style={styles.nome}>{repo.name}</Text>
                 <Text style={styles.desc}>{repo.description || 'Sem descrição'}</Text>
                 <Text style={repo.private ? styles.privado : styles.publico}>
@@ -44,6 +45,11 @@ export default function DetailsRepo({ route }) {
 }
 
 const styles = StyleSheet.create({
+    backPage: {
+        position: 'absolute',
+        left: 20,
+        top: 20,
+    },
     container: {
         flex: 1,
         backgroundColor: '#fff',
@@ -55,6 +61,7 @@ const styles = StyleSheet.create({
         fontSize: 22,
         fontWeight: '600',
         marginBottom: 6,
+        
     },
     desc: {
         fontSize: 14,
