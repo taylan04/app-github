@@ -19,10 +19,6 @@ export default function GitProvider({ children }) {
         return {Authorization: `Bearer ${userToken}`, Accept: "application/vnd.github+json",};
     }
 
-    async function salvarTokenGithub(userToken) {
-        setToken(userToken);
-    }
-
     async function buscarUsuarioGithub(userToken = token) {
         try {
             const response = await fetch("https://api.github.com/user", {headers: getHeaders(userToken)});
@@ -47,7 +43,7 @@ export default function GitProvider({ children }) {
                 throw new Error("Erro ao buscar repositórios");
             }
             const data = await response.json();
-            setRepositorios(data);
+            setRepositorios(prev => page === 1 ? data : [...prev, ...data]);
             return data;
         } catch (error) {
             console.error(error.message);
@@ -71,20 +67,21 @@ export default function GitProvider({ children }) {
     }
 
     async function carregarDadosGithub(userToken) {
-        await salvarTokenGithub(userToken);
-        await buscarUsuarioGithub(userToken);
-        await buscarRepositoriosGithub(1, userToken);
-        await buscarIssuesGithub(userToken);
-    }
+    setToken(userToken);
+    await buscarUsuarioGithub(userToken);
+    await buscarRepositoriosGithub(1, userToken);
+    await buscarIssuesGithub(userToken);
+}
 
     return (
         <GitContext.Provider
             value={{
                 token,
                 usuarioGithub,
+                setUsuarioGithub,
                 repositorios,
                 issues,
-                salvarTokenGithub,
+                setToken,
                 buscarUsuarioGithub,
                 buscarRepositoriosGithub,
                 buscarIssuesGithub,

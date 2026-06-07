@@ -10,24 +10,23 @@ export default function Profile() {
 
     const { user } = useAuth();
     const { updateUser } = useAuth();
-    const { salvarTokenGithub } = useGit();
+    const { carregarDadosGithub, usuarioGithub } = useGit();
     const [nome, setNome] = useState(user?.nome || "");
     const [email, setEmail] = useState(user?.email || "");
     const [telefone, setTelefone] = useState(user?.telefone || "");
     const [token, setToken] = useState("");
     const navigation = useNavigation()
 
-    function save() {
-
-        if (!nome.trim() || !telefone.trim() || !email.trim()) {
-            alert("Preencha os campos para salvar as alterações!")
-            return;
-        }
-
-        updateUser(nome, telefone, email);
-        salvarTokenGithub(token)
-        navigation.navigate(Routes.REPOSITORIOS)
+    async function save() {
+    if (!nome.trim() || !telefone.trim() || !email.trim()) {
+        alert("Preencha os campos para salvar as alterações!")
+        return;
     }
+
+    updateUser(nome, telefone, email);
+    await carregarDadosGithub(token);
+    navigation.navigate(Routes.REPOSITORIOS);
+}
 
     return (
         <View style={styles.Container}>
@@ -37,7 +36,7 @@ export default function Profile() {
                 <Input onChangeFunc={setNome} placeholder="Nome" value={nome} />
                 <Input onChangeFunc={setEmail} placeholder="Email" value={email} />
                 <Input onChangeFunc={setTelefone} placeholder="Telefone" value={telefone} />
-                <Input onChangeFunc={setToken} placeholder="Token" value={token} />
+                <Input onChangeFunc={setToken} placeholder="Token do GitHub"/>
                 <Pressable onPress={save} style={styles.Btn}><Text style={styles.Text}>Salvar</Text></Pressable>
             </View>
         </View>

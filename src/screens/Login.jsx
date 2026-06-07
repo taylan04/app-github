@@ -18,7 +18,7 @@ export default function Login() {
     function autenticar() {
         const sucesso = login(email, senha)
         if (sucesso) {
-            navigation.navigate(Routes.PROFILE)
+            navigation.navigate(Routes.DRAWER, { screen: Routes.PROFILE })
         } else {
             setMensagem("Preencha os campos com as credenciais corretas!")
         }
