@@ -7,6 +7,7 @@ import { useRef, useState } from "react";
 import { Swipeable, GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function Repositorios() {
+    
     const navigation = useNavigation();
     const { repositorios, buscarRepositoriosGithub, usuarioGithub } = useGit();
     const loadingRef = useRef(false);
@@ -46,11 +47,7 @@ export default function Repositorios() {
         if (filtro === 'privado') return repo.private;
         return true;
     })
-        .sort((a, b) =>
-            ordenacao === 'asc'
-                ? a.name.localeCompare(b.name)
-                : b.name.localeCompare(a.name)
-        );
+        .sort((a, b) => ordenacao === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name));
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -66,28 +63,20 @@ export default function Repositorios() {
 
                 <View style={styles.filtros}>
                     <View style={styles.filtroGrupo}>
-                        {['todos', 'publico', 'privado'].map(op => (
-                            <Pressable
-                                key={op}
-                                onPress={() => setFiltro(op)}
-                                style={[styles.filtroBotao, filtro === op && styles.filtroBotaoAtivo]}
-                            >
-                                <Text style={[styles.filtroTexto, filtro === op && styles.filtroTextoAtivo]}>
-                                    {op}
+                        {['todos', 'publico', 'privado'].map(opcao => (
+                            <Pressable key={opcao} onPress={() => setFiltro(opcao)} style={[styles.filtroBotao, filtro === opcao && styles.filtroBotaoAtivo]}>
+                                <Text style={[styles.filtroTexto, filtro === opcao && styles.filtroTextoAtivo]}>
+                                    {opcao}
                                 </Text>
                             </Pressable>
                         ))}
                     </View>
 
                     <View style={styles.filtroGrupo}>
-                        {['asc', 'desc'].map(op => (
-                            <Pressable
-                                key={op}
-                                onPress={() => setOrdenacao(op)}
-                                style={[styles.filtroBotao, ordenacao === op && styles.filtroBotaoAtivo]}
-                            >
-                                <Text style={[styles.filtroTexto, ordenacao === op && styles.filtroTextoAtivo]}>
-                                    {op === 'asc' ? 'A-Z' : 'Z-A'}
+                        {['asc', 'desc'].map(opcao => (
+                            <Pressable key={opcao} onPress={() => setOrdenacao(opcao)} style={[styles.filtroBotao, ordenacao === opcao && styles.filtroBotaoAtivo]}>
+                                <Text style={[styles.filtroTexto, ordenacao === opcao && styles.filtroTextoAtivo]}>
+                                    {opcao === 'asc' ? 'A-Z' : 'Z-A'}
                                 </Text>
                             </Pressable>
                         ))}
