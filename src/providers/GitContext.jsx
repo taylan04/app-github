@@ -5,7 +5,8 @@ const GitContext = createContext(null);
 export function useGit() {
     const context = useContext(GitContext);
     if (!context) {
-    throw new Error("useGit precisa estar dentro de um GitProvider");}
+        throw new Error("useGit precisa estar dentro de um GitProvider");
+    }
     return context;
 }
 
@@ -16,12 +17,12 @@ export default function GitProvider({ children }) {
     const [issues, setIssues] = useState([]);
 
     function getHeaders(userToken = token) {
-        return {Authorization: `Bearer ${userToken}`, Accept: "application/vnd.github+json",};
+        return { Authorization: `Bearer ${userToken}`, Accept: "application/vnd.github+json", };
     }
 
     async function buscarUsuarioGithub(userToken = token) {
         try {
-            const response = await fetch("https://api.github.com/user", {headers: getHeaders(userToken)});
+            const response = await fetch("https://api.github.com/user", { headers: getHeaders(userToken) });
 
             if (!response.ok) {
                 throw new Error("Erro ao buscar usuário do GitHub");
@@ -38,7 +39,7 @@ export default function GitProvider({ children }) {
 
     async function buscarRepositoriosGithub(page = 1, userToken = token) {
         try {
-            const response = await fetch(`https://api.github.com/user/repos?page=${page}`,{headers: getHeaders(userToken)});
+            const response = await fetch(`https://api.github.com/user/repos?page=${page}`, { headers: getHeaders(userToken) });
             if (!response.ok) {
                 throw new Error("Erro ao buscar repositórios");
             }
@@ -53,10 +54,10 @@ export default function GitProvider({ children }) {
 
     async function buscarIssuesGithub(userToken = token) {
         try {
-            const response = await fetch("https://api.github.com/issues", {headers: getHeaders(userToken)});
-            if (!response.ok) {
-                throw new Error("Erro ao buscar issues");
-            }
+            const response = await fetch("https://api.github.com/issues?filter=assigned&state=all", {
+                headers: getHeaders(userToken)
+            });
+            if (!response.ok) throw new Error("Erro ao buscar issues");
             const data = await response.json();
             setIssues(data);
             return data;
@@ -66,12 +67,29 @@ export default function GitProvider({ children }) {
         }
     }
 
+    async function atualizarStatusIssue(issue, novoStatus) {
+        try {
+            const [owner, repoName] = issue.repository.full_name.split('/');
+            await fetch(
+                `https://api.github.com/repos/${owner}/${repoName}/issues/${issue.number}`,
+                {
+                    method: 'PATCH',
+                    headers: { ...getHeaders(), 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ state: novoStatus }),
+                }
+            );
+            await buscarIssuesGithub();
+        } catch (error) {
+            console.error(error.message);
+        }
+    }
+
     async function carregarDadosGithub(userToken) {
-    setToken(userToken);
-    await buscarUsuarioGithub(userToken);
-    await buscarRepositoriosGithub(1, userToken);
-    await buscarIssuesGithub(userToken);
-}
+        setToken(userToken);
+        await buscarUsuarioGithub(userToken);
+        await buscarRepositoriosGithub(1, userToken);
+        await buscarIssuesGithub(userToken);
+    }
 
     return (
         <GitContext.Provider
@@ -83,6 +101,7 @@ export default function GitProvider({ children }) {
                 issues,
                 setToken,
                 buscarUsuarioGithub,
+                atualizarStatusIssue,
                 buscarRepositoriosGithub,
                 buscarIssuesGithub,
                 carregarDadosGithub
