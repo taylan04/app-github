@@ -18,7 +18,6 @@ export default function Button({ text, screen, pop = false }) {
 
 const styles = StyleSheet.create({
     Container: {
-        flex: 1,
         alignItems: 'center',
         padding: 10
     },

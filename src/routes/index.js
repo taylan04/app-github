@@ -6,6 +6,7 @@ const Routes = {
     DRAWER: 'DrawerNavigator',
     REPOSITORIOS: 'Repositorios',
     ISSUES: 'Issues',
+    REPO: 'Repo',
 }
 
 export default Routes;

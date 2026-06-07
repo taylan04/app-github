@@ -28,7 +28,7 @@ export default function Login() {
         <>
             <View style={styles.Container}>
                 <Text style={styles.Title}>Login</Text>
-                <Input onChangeFunc={setEmail} placeholder={"email"}  />
+                <Input onChangeFunc={setEmail}  placeholder={"email"}  />
                 <Input onChangeFunc={setSenha} placeholder={"Senha"} />
                 <AlertaMensagem msg={mensagem} style={mensagem != "" ? {} : {display:'none'}}/>
                 <Pressable onPress={autenticar} style={styles.Btn}><Text style={styles.Text}>Entrar</Text></Pressable>
@@ -43,7 +43,7 @@ export default function Login() {
 
 const styles = StyleSheet.create({
     Container: {
-        top: 40
+        marginTop: 100
     },
     Btn: {
         backgroundColor: '#191919',

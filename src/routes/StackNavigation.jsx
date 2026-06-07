@@ -5,6 +5,7 @@ import Register from '../screens/Register';
 import DrawerNavigator from './DrawerNavigator';
 import Routes from '.';
 import { useGit } from "../providers/GitContext";
+import DetailsRepo from '../screens/DetailsRepo';
 
 export default function StackNavigation() {
 
@@ -27,6 +28,10 @@ export default function StackNavigation() {
             <Stack.Screen
                 name={Routes.DRAWER}
                 component={DrawerNavigator}
+            />
+            <Stack.Screen
+                name={Routes.REPO}
+                component={DetailsRepo}
             />
         </Stack.Navigator>
     )

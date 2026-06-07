@@ -12,6 +12,7 @@ export default function DrawerNavigator() {
     return (
         <Drawer.Navigator screenOptions={{
                 headerShown: true,
+                swipeEnabled: false,
             }}>
             <Drawer.Screen name={Routes.HOME} component={Home} />
             <Drawer.Screen name={Routes.PROFILE} component={Profile} />

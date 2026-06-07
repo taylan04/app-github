@@ -16,6 +16,6 @@ export default function BackPage() {
 const styles = StyleSheet.create({
     Back: {
         left: 40,
-        top: 25
+        top: 90
     }
 })

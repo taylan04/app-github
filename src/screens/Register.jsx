@@ -51,7 +51,7 @@ export default function Register() {
 
 const styles = StyleSheet.create({
     Container: {
-        top: 40
+        marginTop: 100
     },
     Btn: {
         backgroundColor: '#191919',

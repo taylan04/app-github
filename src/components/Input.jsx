@@ -11,15 +11,15 @@ export default function Input({ placeholder, onChangeFunc, value }) {
 
 const styles = StyleSheet.create({
     Container: {
-        flex: 1,
         padding: 10,
-        alignItems: 'center'
+        width: '100%',
     },
     inputField: {
         padding: 10,
         borderWidth: 1,
         borderColor: "#212121",
         borderRadius: 10,
-        width: 300,
-    }
+        width: '80%',
+        alignSelf: 'center',
+    },
 })
