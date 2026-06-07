@@ -1,7 +1,6 @@
 import { StyleSheet, View, Text } from "react-native";
 import BackPage from "../components/BackPage";
 import { useNavigation } from '@react-navigation/native';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function Home() {
 

@@ -14,12 +14,24 @@ export default function AuthProvider({ children }) {
         setRegisteredUser({ nome, telefone, email, password });
     }
 
-    const login = (email, password) => {
+    const updateUser = (nome, telefone, email) => {
+        setUser({ nome, telefone, email });
+    }
+
+    /*const login = (email, password) => {
         if (registeredUser && email === registeredUser.email && password === registeredUser.password) {
             setUser({nome: registeredUser.nome, email: email, telefone: registeredUser.telefone});
             return true;
         }
 
+        return false;
+    };*/
+
+    const login = (email, password) => {
+        if (email === "taylansilva0402@gmail.com" && password === "tay") {
+            setUser({ nome: "Taylan", email: email, telefone: "123456789" });
+            return true;
+        }
         return false;
     };
 
@@ -28,7 +40,7 @@ export default function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider value={{ user, registeredUser, register, login, logout }}>
+        <AuthContext.Provider value={{ user, registeredUser, register, login, logout, updateUser }}>
             {children}
         </AuthContext.Provider>
     );
