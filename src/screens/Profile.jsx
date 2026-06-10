@@ -8,9 +8,8 @@ import Routes from "../routes";
 
 export default function Profile() {
 
-    const { user } = useAuth();
-    const { updateUser } = useAuth();
-    const { carregarDadosGithub, usuarioGithub } = useGit();
+    const { user, updateUser } = useAuth();
+    const { carregarDadosGithub } = useGit();
     const [nome, setNome] = useState(user?.nome || "");
     const [email, setEmail] = useState(user?.email || "");
     const [telefone, setTelefone] = useState(user?.telefone || "");
