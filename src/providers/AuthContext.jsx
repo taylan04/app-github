@@ -26,18 +26,18 @@ export default function AuthProvider({ children }) {
     
     const [valores, dispatch] = useReducer(authReducer, valoresIniciais);
 
-    const register = (nome, telefone, email, password) => dispatch({type: "set_user", payload: {nome, telefone, email, password}});
+    const register = (nome, telefone, email, password) => dispatch({type: "set_resgisteredUser", payload: {nome, telefone, email, password}});
 
     const updateUser = (nome, telefone, email) => dispatch({type: "set_user", payload: {nome, telefone, email}});
 
-    /*const login = (email, password) => {
+    const login = (email, password) => {
         if (registeredUser && email === registeredUser.email && password === registeredUser.password) {
-            setUser({nome: registeredUser.nome, email: email, telefone: registeredUser.telefone});
+            dispatch({type: "set_user", payload: { nome: registeredUser.nome, email: email, telefone: registeredUser.telefone }});
             return true;
         }
 
         return false;
-    };*/
+    };
 
     const login = (email, password) => {
         if (email === "taylansilva0402@gmail.com" && password === "tay") {
