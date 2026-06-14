@@ -15,7 +15,9 @@ export default function BackPage() {
 
 const styles = StyleSheet.create({
     Back: {
-        left: 40,
-        top: 90
+        position: 'absolute',
+        top: 40,
+        left: 30,
+        zIndex: 999,
     }
 })

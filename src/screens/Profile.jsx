@@ -8,11 +8,11 @@ import Routes from "../routes";
 
 export default function Profile() {
 
-    const { user, updateUser } = useAuth();
+    const { valores, updateUser } = useAuth();
     const { carregarDadosGithub } = useGit();
-    const [nome, setNome] = useState(user?.nome || "");
-    const [email, setEmail] = useState(user?.email || "");
-    const [telefone, setTelefone] = useState(user?.telefone || "");
+    const [nome, setNome] = useState(valores?.user?.nome || "");
+    const [email, setEmail] = useState(valores?.user?.email || "");
+    const [telefone, setTelefone] = useState(valores?.user?.telefone || "");
     const [token, setToken] = useState("");
     const navigation = useNavigation()
 

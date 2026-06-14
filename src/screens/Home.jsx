@@ -8,7 +8,6 @@ export default function Home() {
 
     return (
         <View>
-            <BackPage />
             <Text style={styles.Text}>Você logou!</Text>
         </View>
     )
